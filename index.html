@@ -1,0 +1,396 @@
+<!doctype html><html lang="cs"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="color-scheme" content="light dark"><meta name="robots" content="noindex,nofollow,noarchive"><meta name="referrer" content="no-referrer"><title>Panel</title><style>
+:root{--bg:#F4F0E8;--card:#FFFCF7;--card2:#F8F3EA;--ink:#1D1915;--mut:#786D61;--line:rgba(29,25,21,.11);
+--acc:#B4643C;--acc2:rgba(180,100,60,.12);--ok:#3B7A4C;--warn:#A86E12;--bad:#B3412E;--off:#8F867C;
+--okbg:rgba(59,122,76,.11);--warnbg:rgba(196,138,34,.14);--badbg:rgba(179,65,46,.11);--offbg:rgba(143,134,124,.13);--sh:0 1px 2px rgba(29,25,21,.05)}
+@media (prefers-color-scheme:dark){:root{--bg:#13110E;--card:#1C1815;--card2:#231E1A;--ink:#EEE6DA;--mut:#A09385;
+--line:rgba(238,230,218,.11);--acc:#DB8D62;--acc2:rgba(219,141,98,.15);--ok:#7CC08A;--warn:#E6AE52;--bad:#EE8069;--off:#8A8076;
+--okbg:rgba(124,192,138,.13);--warnbg:rgba(230,174,82,.14);--badbg:rgba(238,128,105,.14);--offbg:rgba(138,128,118,.16);--sh:none}}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+[hidden]{display:none!important}
+body{background:var(--bg);color:var(--ink);font:400 14px/1.45 -apple-system,BlinkMacSystemFont,"SF Pro Text",system-ui,"Segoe UI",Roboto,sans-serif;font-variant-numeric:tabular-nums}
+.wrap{max-width:1480px;margin:0 auto;padding:clamp(14px,2.4vw,30px) clamp(12px,2.4vw,30px) 48px}
+h1,h2,h3,.serif{font-family:ui-serif,"New York","Iowan Old Style",Georgia,serif;font-weight:400;letter-spacing:-.01em}
+h1{font-size:clamp(2rem,4vw,3rem);line-height:1}
+h2{font-size:1.3rem;line-height:1.15}
+h3{font-size:1.45rem;line-height:1.15}
+h4{font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--mut);margin:18px 0 8px}
+a{color:inherit}
+.eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);margin-bottom:6px}
+.mut{color:var(--mut)}.maly{font-size:12px}
+.st-ok{--c:var(--ok);--cb:var(--okbg)}.st-warn{--c:var(--warn);--cb:var(--warnbg)}.st-bad{--c:var(--bad);--cb:var(--badbg)}.st-off{--c:var(--off);--cb:var(--offbg)}
+.tag{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:999px;font-size:11.5px;line-height:1.5;background:var(--cb,var(--offbg));color:var(--c,var(--mut));white-space:nowrap}
+.hlava{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap;margin-bottom:16px}
+.hlava-r{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.pill{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:999px;border:1px solid var(--line);background:var(--card);font-size:12px;color:var(--mut);white-space:nowrap}
+.pill button{border:0;background:none;color:inherit;font:inherit;cursor:pointer;text-decoration:underline}
+.tecka{width:8px;height:8px;border-radius:50%;background:var(--ok);flex:none}.tecka.off{background:var(--bad)}.tecka.stary{background:var(--warn)}
+.verdikt{display:flex;justify-content:space-between;gap:14px 28px;flex-wrap:wrap;align-items:center;background:var(--card);border:1px solid var(--line);border-left:4px solid var(--c);border-radius:16px;padding:14px 18px;margin-bottom:10px;box-shadow:var(--sh)}
+.v-l{display:flex;gap:12px;align-items:flex-start;min-width:0;flex:1 1 320px}
+.v-dot{width:12px;height:12px;border-radius:50%;background:var(--c);margin-top:9px;flex:none;box-shadow:0 0 0 5px var(--cb)}
+.v-t{font:400 clamp(1.35rem,2.4vw,1.8rem)/1.15 ui-serif,"New York",Georgia,serif}
+.v-d{font-size:12.5px;color:var(--mut);margin-top:4px;display:flex;flex-wrap:wrap;gap:4px}
+.v-cisla{display:flex;gap:10px 24px;flex-wrap:wrap}
+.v-cisla div{display:flex;flex-direction:column;min-width:0}
+.v-cisla b{font-size:1.3rem;font-weight:500;line-height:1.2}
+.v-cisla span{font-size:11.5px;color:var(--mut)}
+.zdravi{display:grid;grid-template-columns:repeat(auto-fill,minmax(168px,1fr));gap:8px;margin-bottom:26px}
+.z{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:9px 12px 10px 14px;position:relative;min-width:0;box-shadow:var(--sh)}
+.z::before{content:"";position:absolute;left:0;top:9px;bottom:9px;width:3px;border-radius:0 3px 3px 0;background:var(--c)}
+.z-n{font-size:10.5px;color:var(--mut);text-transform:uppercase;letter-spacing:.09em}
+.z-h{font-size:15px;font-weight:500;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.z.st-bad .z-h,.z.st-warn .z-h{color:var(--c)}
+.z-d{font-size:11.5px;color:var(--mut);margin-top:2px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;overflow-wrap:anywhere}
+.sekce-h{display:flex;align-items:baseline;justify-content:space-between;gap:6px 14px;flex-wrap:wrap;margin:0 0 10px}
+.zeme{display:grid;grid-template-columns:repeat(auto-fill,minmax(248px,1fr));gap:10px}
+.kz{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:13px 15px;min-width:0;display:flex;flex-direction:column;gap:8px;box-shadow:var(--sh)}
+.kz-h{display:flex;align-items:center;gap:8px;min-width:0}
+.kod{font:600 11px/1 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.05em;padding:4px 6px;border-radius:6px;background:var(--ink);color:var(--card);flex:none}
+.kz-nazev{font-weight:500;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.kz-num{display:flex;align-items:baseline;gap:6px}
+.kz-num b{font:400 2.3rem/1 ui-serif,"New York",Georgia,serif}
+.kz-num span{color:var(--mut);font-size:13px}
+.bar{height:6px;border-radius:9px;background:var(--line);position:relative}
+.bar i{position:absolute;left:0;top:0;bottom:0;border-radius:9px;background:var(--c);transition:width .6s cubic-bezier(.3,.7,0,1)}
+.bar b{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--ink);opacity:.45;border-radius:2px}
+.kz-sub{font-size:12px;color:var(--mut);display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.kv{display:grid;grid-template-columns:auto minmax(0,1fr);gap:3px 10px;font-size:12.5px;border-top:1px solid var(--line);padding-top:8px}
+.kv dt{color:var(--mut);white-space:nowrap}
+.kv dd{text-align:right;min-width:0;overflow-wrap:anywhere}
+.kv dd small{color:var(--mut);font-size:11.5px}
+.spark{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;align-items:end;height:46px}
+.spark div{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;gap:2px;min-width:0}
+.spark i{display:block;width:100%;border-radius:3px 3px 1px 1px;background:var(--mut);opacity:.35;min-height:2px}
+.spark div.dnes i{background:var(--acc);opacity:1}
+.spark span{font-size:9.5px;color:var(--mut);line-height:1}
+.kz-log{font-size:11.5px;color:var(--mut);border-top:1px solid var(--line);padding-top:6px;overflow-wrap:anywhere}
+.kz-log .w{color:var(--warn)}
+.stare{margin:10px 2px 0;font-size:12px;color:var(--mut)}
+.dva{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:10px;margin-top:22px}
+@media (max-width:980px){.dva{grid-template-columns:minmax(0,1fr)}}
+.karta{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:15px 16px;min-width:0;box-shadow:var(--sh)}
+.karta+.karta{margin-top:0}
+.karta-h{display:flex;justify-content:space-between;align-items:center;gap:8px 10px;flex-wrap:wrap;margin-bottom:10px}
+.plna{margin-top:22px}
+.seg{display:inline-flex;gap:2px;background:var(--card2);border:1px solid var(--line);border-radius:10px;padding:2px;flex-wrap:wrap}
+.seg button{border:0;background:none;color:var(--mut);font:inherit;font-size:12px;padding:4px 9px;border-radius:8px;cursor:pointer;white-space:nowrap}
+.seg button.on{background:var(--card);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.1)}
+.seg button b{font-weight:500}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.chip{font-size:12px;padding:3px 9px;border-radius:999px;border:1px solid var(--line);color:var(--mut);white-space:nowrap}
+.chip b{color:var(--ink);font-weight:500}
+.odp-seznam{display:flex;flex-direction:column;gap:6px;max-height:600px;overflow:auto;overscroll-behavior:contain}
+.odp{border:1px solid var(--line);border-radius:12px;padding:9px 11px}
+.odp.ceka{border-color:color-mix(in srgb,var(--warn) 55%,transparent);background:var(--warnbg)}
+.odp-h{display:flex;gap:6px;align-items:baseline;flex-wrap:wrap;font-size:13px;min-width:0}
+.odp-h .kdo{font-weight:500;min-width:0;overflow-wrap:anywhere}
+.odp-h .cas{margin-left:auto;color:var(--mut);font-size:12px;white-space:nowrap}
+.odp-t{font-size:13px;margin:4px 0 6px;overflow-wrap:anywhere}
+.odp-f{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.odkaz{border:0;background:none;color:var(--acc);font:inherit;font-size:12px;cursor:pointer;padding:0;text-decoration:underline}
+.prazdne{color:var(--mut);font-size:13px;padding:10px 2px}
+.chat-vlakno{display:flex;flex-direction:column;gap:8px;height:420px;overflow:auto;padding:2px;overscroll-behavior:contain}
+.m{max-width:86%;padding:8px 11px;border-radius:14px;font-size:13.5px;white-space:pre-wrap;overflow-wrap:anywhere}
+.m-rafael{align-self:flex-end;background:var(--acc);color:#fff;border-bottom-right-radius:4px}
+.m-claude{align-self:flex-start;background:var(--card2);border:1px solid var(--line);border-bottom-left-radius:4px}
+.m-provoz{align-self:center;max-width:94%;background:var(--warnbg);font-size:12.5px;border-radius:10px}
+.m-meta{display:block;font-size:10.5px;opacity:.72;margin-top:3px;white-space:normal}
+.chat-form{display:flex;gap:8px;margin-top:10px;align-items:flex-end}
+.pozn-snimek{margin-top:10px;font-size:12px;color:var(--mut)}
+textarea,input,select{font:inherit;font-size:14px;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:8px 10px;width:100%;min-width:0}
+textarea{resize:vertical}
+textarea:focus,input:focus,select:focus{outline:2px solid var(--acc2);border-color:var(--acc)}
+.btn{border:0;background:var(--acc);color:#fff;font:inherit;font-size:13.5px;font-weight:500;padding:9px 14px;border-radius:10px;cursor:pointer;white-space:nowrap}
+.btn:disabled{opacity:.5;cursor:default}
+.btn-2{border:1px solid var(--line);background:var(--card2);color:var(--ink);font:inherit;font-size:12.5px;padding:6px 11px;border-radius:9px;cursor:pointer;white-space:nowrap}
+.crm-souhrn{font-size:12.5px;color:var(--mut)}
+.crm-faze{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.fz{border:1px solid var(--line);background:var(--card2);border-radius:10px;padding:5px 10px;font:inherit;font-size:12.5px;cursor:pointer;color:var(--ink);display:inline-flex;gap:6px;align-items:baseline;white-space:nowrap}
+.fz.on{border-color:var(--acc);box-shadow:inset 0 0 0 1px var(--acc)}
+.fz small{color:var(--mut);font-size:11.5px}
+.fz.zv{border-style:dashed}
+.f0{--c:var(--acc);--cb:var(--acc2)}.f1{--c:var(--warn);--cb:var(--warnbg)}.f2{--c:#6B5FB5;--cb:rgba(107,95,181,.13)}
+.f3{--c:#2F7F8C;--cb:rgba(47,127,140,.13)}.f4{--c:var(--ok);--cb:var(--okbg)}.f5{--c:var(--off);--cb:var(--offbg)}
+@media (prefers-color-scheme:dark){.f2{--c:#A99CF0}.f3{--c:#72C3CF}}
+.crm-seznam{display:flex;flex-direction:column}
+.cr{display:grid;grid-template-columns:minmax(0,2.1fr) 104px 74px minmax(0,2.4fr) 70px 64px;gap:4px 12px;align-items:center;padding:9px 8px;border-top:1px solid var(--line);cursor:pointer;border-radius:8px;text-align:left;background:none;border-left:0;border-right:0;border-bottom:0;font:inherit;color:inherit;width:100%}
+.cr:hover{background:var(--card2)}
+.cr-h{cursor:default;color:var(--mut);font-size:10.5px;text-transform:uppercase;letter-spacing:.09em;border-top:0;padding-top:0}
+.cr-h:hover{background:none}
+.cr-lead{min-width:0}
+.cr-lead b{font-weight:500;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cr-lead small{color:var(--mut);font-size:11.5px;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cr-hod{text-align:right;white-space:nowrap}
+.cr-krok{min-width:0;font-size:13px}
+.cr-krok>span{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cr-krok small{font-size:11.5px;color:var(--mut)}
+.cr-krok small.po{color:var(--bad)}
+.cr-vl,.cr-zm{font-size:12px;color:var(--mut);white-space:nowrap}
+@media (max-width:760px){.cr-h{display:none}
+ .cr{grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"lead faze" "krok krok" "meta hod"}
+ .cr-lead{grid-area:lead}.cr-fz{grid-area:faze}.cr-krok{grid-area:krok}.cr-hod{grid-area:hod}
+ .cr-vl{grid-area:meta}.cr-zm{display:none}}
+.denik{display:flex;flex-direction:column;max-height:430px;overflow:auto;overscroll-behavior:contain}
+.dr{display:grid;grid-template-columns:78px 62px minmax(0,1fr);gap:8px;padding:6px 0;border-top:1px solid var(--line);font-size:13px;align-items:baseline}
+.dr:first-child{border-top:0}
+.dr .t{white-space:pre-wrap;overflow-wrap:anywhere}
+.log{font:12px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;max-height:430px;overflow:auto;overscroll-behavior:contain}
+.lr{display:grid;grid-template-columns:62px 70px minmax(0,1fr);gap:8px;padding:3px 0;border-top:1px solid var(--line)}
+.lr:first-child{border-top:0}
+.lr .lt{overflow-wrap:anywhere}.lr .lk{color:var(--mut)}
+.lr.chyba .lt{color:var(--bad)}.lr.varovani .lt{color:var(--warn)}.lr.rozesilka .lt,.lr.odeslano .lt{color:var(--acc)}
+.skupiny{font-size:12px;color:var(--mut);margin:-2px 0 8px;display:flex;flex-direction:column;gap:2px}
+.skupiny span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+@media (max-width:600px){.lr{grid-template-columns:56px minmax(0,1fr)}.lr .lk{display:none}.dr{grid-template-columns:64px minmax(0,1fr)}.dr .k{display:none}}
+.pata{margin-top:22px;font-size:12px;color:var(--mut);display:flex;gap:4px 14px;flex-wrap:wrap}
+dialog{border:0;border-radius:18px;padding:0;background:var(--card);color:var(--ink);width:min(860px,calc(100vw - 20px));max-height:calc(100dvh - 20px);box-shadow:0 24px 70px rgba(0,0,0,.35);margin:auto}
+dialog::backdrop{background:rgba(20,16,12,.5)}
+.dlg{padding:18px;overflow:auto;max-height:calc(100dvh - 20px)}
+.dlg-h{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:14px}
+.x{border:1px solid var(--line);background:var(--card2);color:var(--ink);width:34px;height:34px;border-radius:10px;font-size:18px;cursor:pointer;flex:none}
+.dlg-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.dlg-grid label{display:flex;flex-direction:column;gap:3px;font-size:11.5px;color:var(--mut);min-width:0}
+.s2{grid-column:span 2}.s4{grid-column:1/-1}
+@media (max-width:640px){.dlg-grid{grid-template-columns:1fr 1fr}.s2{grid-column:1/-1}.dlg{padding:14px}}
+.dlg-akce{display:flex;gap:10px;align-items:center;margin-top:12px;flex-wrap:wrap}
+.dlg-pozn{display:flex;gap:8px;margin-top:12px;align-items:flex-end}
+.ro{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 14px;font-size:13.5px}
+.ro dt{color:var(--mut)}.ro dd{white-space:pre-wrap;overflow-wrap:anywhere}
+.hist{list-style:none;display:flex;flex-direction:column;gap:3px;font-size:12.5px;max-height:180px;overflow:auto}
+.hist li{display:flex;gap:8px}.hist li span:first-child{color:var(--mut);white-space:nowrap}
+.vl{display:flex;flex-direction:column;gap:8px}
+.msg{border:1px solid var(--line);border-radius:12px;padding:9px 11px;font-size:13px}
+.msg.ven{background:var(--acc2);border-color:transparent;margin-left:clamp(0px,6vw,48px)}
+.msg.kampan{background:var(--card2);font-size:12px;color:var(--mut)}
+.msg-h{display:flex;gap:8px;flex-wrap:wrap;align-items:baseline;font-size:12px;color:var(--mut);margin-bottom:4px}
+.msg-h b{color:var(--ink);font-weight:500}
+.msg-t{white-space:pre-wrap;overflow-wrap:anywhere;max-height:12.5em;overflow:hidden}
+.msg-t.cely{max-height:none}
+#brana{position:fixed;inset:0;display:grid;place-items:center;background:var(--bg);z-index:20;padding:16px}
+.brana-k{width:min(380px,100%);background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px;display:flex;flex-direction:column;gap:12px;box-shadow:var(--sh)}
+.brana-k label.ch{display:flex;gap:8px;align-items:center;font-size:13px;color:var(--mut)}
+.brana-k label.ch input{width:auto}
+.chyba-t{color:var(--bad);font-size:13px;min-height:1.2em}
+</style></head><body>
+<div id="brana"><form class="brana-k" id="brana-form" autocomplete="on">
+ <p class="eyebrow">WebHunter · realitní linka</p><h2>Provoz — snímek</h2>
+ <p class="mut maly">Data jsou zašifrovaná. Zadej heslo, rozšifrují se jen v tomhle prohlížeči.</p>
+ <input type="password" id="heslo" autocomplete="current-password" placeholder="Heslo" required>
+ <label class="ch"><input type="checkbox" id="zapamatovat"> zapamatovat v tomhle zařízení</label>
+ <button class="btn" type="submit" id="brana-btn">Otevřít</button>
+ <p class="chyba-t" id="brana-chyba"></p>
+</form></div>
+
+<div class="wrap">
+<header class="hlava">
+ <div><p class="eyebrow">WebHunter · realitní linka</p><h1>Provoz</h1></div>
+ <div class="hlava-r"><span class="pill" id="datum"></span><span class="pill"><span class="tecka" id="tecka"></span><span id="cas">načítám…</span></span><span class="pill" id="rezim-pill" hidden></span></div>
+</header>
+<section class="verdikt st-off" id="verdikt"><div class="v-l"><span class="v-dot"></span><div><p class="v-t">Načítám stav…</p></div></div></section>
+<section class="zdravi" id="zdravi"></section>
+<div class="sekce-h"><h2>Země</h2><p class="mut maly" id="zeme-souhrn"></p></div>
+<section class="zeme" id="zeme"></section>
+<p class="stare" id="stare"></p>
+<div class="dva">
+ <section class="karta"><div class="karta-h"><h2>Odpovědi</h2><div class="seg" id="odp-filtr"></div></div>
+  <div class="chips" id="slozky"></div><div class="odp-seznam" id="odpovedi"></div></section>
+ <section class="karta"><div class="karta-h"><h2>Chat s Claudem</h2><span class="mut maly" id="tg"></span></div>
+  <div class="chat-vlakno" id="chat"></div>
+  <form class="chat-form" id="chat-form" hidden><textarea id="chat-text" rows="2" placeholder="Napiš Claudovi… (Enter odešle, Shift+Enter nový řádek)"></textarea><button class="btn" type="submit" id="chat-btn">Odeslat</button></form>
+  <p class="pozn-snimek" id="chat-pozn" hidden>Snímek je jen ke čtení — psát Claudovi jde přes Telegram.</p></section>
+</div>
+<section class="karta plna"><div class="karta-h"><div><h2>Obchody</h2><p class="crm-souhrn" id="crm-souhrn"></p></div><button class="btn-2" id="crm-novy" hidden>+ Nový lead</button></div>
+ <div class="crm-faze" id="crm-faze"></div><div class="crm-seznam" id="crm-seznam"></div></section>
+<div class="dva">
+ <section class="karta"><div class="karta-h"><h2>Deník</h2><span class="mut maly">co kdo udělal</span></div><div class="denik" id="denik"></div></section>
+ <section class="karta"><div class="karta-h"><h2>Log</h2><div class="seg" id="log-filtr"></div></div><div class="skupiny" id="skupiny"></div><div class="log" id="log"></div></section>
+</div>
+<footer class="pata" id="pata"></footer>
+</div>
+<dialog id="lead"><div class="dlg" id="lead-obsah"></div></dialog>
+<script>window.REZIM='snimek';</script><script>
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const cis=x=>x==null?'–':Number(x).toLocaleString('cs-CZ');
+const eur=x=>x?Math.round(x).toLocaleString('cs-CZ')+' €':'';
+const LOKAL=window.REZIM==='lokal';
+function put(el,html){if(typeof el==='string')el=$(el);if(el&&el._h!==html){el.innerHTML=html;el._h=html;return true}return false}
+function lsGet(k,d){try{return localStorage.getItem('panel.'+k)??d}catch(e){return d}}
+function lsSet(k,v){try{localStorage.setItem('panel.'+k,v)}catch(e){}}
+const UI={odp:lsGet('odp','ceka'),log:lsGet('log','dulezite'),crm:lsGet('crm','otevrene')};
+let D=null,DNES='';
+function denCas(iso){if(!iso)return'';const d=iso.slice(0,10),t=iso.slice(11,16);if(d===DNES)return t;const[y,m,dd]=d.split('-');return `${+dd}. ${+m}. ${t}`}
+function datum(iso){if(!iso)return'';const[y,m,d]=iso.slice(0,10).split('-');return `${+d}. ${+m}.`}
+function spark(vals,labs){const m=Math.max(1,...vals);return `<div class="spark" aria-label="odesláno za 7 dní">`+vals.map((v,i)=>`<div class="${i===vals.length-1?'dnes':''}" title="${esc(labs[i])}: ${v}"><i style="height:${Math.max(4,v/m*100)*0.62}%"></i><span>${+String(labs[i]).slice(3)}.</span></div>`).join('')+'</div>'}
+function seg(el,items,cur,fn){put(el,items.map(([k,l])=>`<button type="button" data-k="${k}" class="${k===cur?'on':''}">${l}</button>`).join(''));el.onclick=e=>{const b=e.target.closest('button');if(b){fn(b.dataset.k)}}}
+
+function vykresli(d){
+ D=d;DNES=d.dnes||'';
+ $('cas').textContent=(LOKAL?'živě · ':'')+d.cas;
+ $('datum').textContent=d.datum||'';
+ const v=d.verdikt||{stav:'off',text:'',duvody:[]};
+ $('verdikt').className='verdikt st-'+v.stav;
+ const s=d.souhrn||{},c=d.crm||{},p=d.posta;
+ put('verdikt',`<div class="v-l"><span class="v-dot"></span><div><p class="v-t">${esc(v.text)}</p>${v.duvody.length?`<p class="v-d">${v.duvody.map(x=>`<span class="tag st-${v.stav}">${esc(x)}</span>`).join('')}</p>`:`<p class="v-d">Proces, vlákna, rozesílka i pošta bez výhrad.</p>`}</div></div>
+ <div class="v-cisla"><div><b>${cis(s.dnes)} <small class="mut">/ ${cis(s.cil)}</small></b><span>odesláno dnes · plán ${cis(s.plan)}</span></div>
+ <div><b>${s.fronta==null?'…':cis(s.fronta)}</b><span>ve frontě</span></div>
+ <div><b>${p?cis(p.ceka):'…'}</b><span>čeká na odpověď</span></div>
+ <div><b>${cis(c.otevrene)}</b><span>otevřených leadů · ${eur(c.hodnota)||'0 €'}</span></div>
+ <div><b>${cis(c.zavolat)}</b><span>zavolat</span></div></div>`);
+ put('zdravi',(d.zdravi||[]).map(z=>`<div class="z st-${z.stav}" title="${esc(z.detail)}"><p class="z-n">${esc(z.nazev)}</p><p class="z-h">${esc(z.hodnota)}</p><p class="z-d">${esc(z.detail)||'&nbsp;'}</p></div>`).join(''));
+ zeme(d);odpovedi(d);chat(d);crm(d);denik(d);logy(d);
+ const pr=d.prepocet||{};
+ put('pata',`<span>fronty: ${pr.fronty?'před '+esc(pr.fronty):'počítají se…'}${pr.fronty_chyba?' · '+esc(pr.fronty_chyba):''}</span><span>pošta: ${d.posta_stari!=null?'před '+esc(pr.posta):'čte se…'}${d.posta_chyba?' · '+esc(d.posta_chyba):''}</span><span>inzeráty: ${pr.inzeraty?'před '+esc(pr.inzeraty):'…'}</span><span>odpověď ${d.ms} ms</span>${LOKAL?'<span>lokální panel 127.0.0.1 — jen ke čtení (kromě chatu a CRM)</span>':''}`);
+}
+
+function zeme(d){
+ put('zeme-souhrn',`rozesílka 8–11 h, dohání do 20 h · cíl ${cis((d.souhrn||{}).cil)} denně`);
+ put('zeme',(d.zeme||[]).map(k=>{
+  const pct=k.cil?Math.min(100,k.dnes/k.cil*100):0,pl=k.cil?Math.min(100,k.plan/k.cil*100):0,f=k.fronta,w=k.weby,fi=k.filtr;
+  const log=(k.log||[]).slice(-2).reverse().map(l=>`<div class="${l.typ==='warn'?'w':''}">${esc(l.cas)} ${esc(l.text)}</div>`).join('');
+  return `<article class="kz st-${k.stav}"><div class="kz-h"><span class="kod">${k.kod}</span><span class="kz-nazev">${esc(k.nazev)}</span><span class="tag st-${k.stav}">${esc(k.stav_text)}</span></div>
+  <div class="kz-num"><b>${cis(k.dnes)}</b><span>/ ${cis(k.cil)} odesláno</span></div>
+  <div class="bar"><i style="width:${pct}%"></i><b style="left:calc(${pl}% - 1px)" title="plán teď ${k.plan}"></b></div>
+  <div class="kz-sub"><span>plán teď ${cis(k.plan)}</span><span>${k.posledni?'poslední '+esc(k.posledni):'dnes nic'} · celkem ${cis(k.celkem)}</span></div>
+  <dl class="kv">
+   <dt>Fronta</dt><dd>${f?`${cis(f.lidi)} <small>(${cis(f.novi)} nových)</small>`:'<small>počítá se…</small>'}</dd>
+   <dt title="postaveno / nasazeno / s odkazem webhunter.cz">Weby dnes</dt><dd title="postaveno ${w?w.dnes:''}, nasazeno ${w?w.dnes_nasazeno:''}, s odkazem ${w?w.dnes_odkaz:''}">${w?`${cis(w.dnes)} <small>/ ${cis(w.dnes_nasazeno)} / ${cis(w.dnes_odkaz)}</small>`:'…'}</dd>
+   <dt title="staženo (detail inzerátu) / nalezeno hlídačem">Inzeráty dnes</dt><dd>${cis(k.stazeno_dnes)} <small>/ ${k.nalezeno_dnes==null?'…':cis(k.nalezeno_dnes)} nalez.</small></dd>
+   <dt title="${fi?esc(fi.druh):''}">Právní filtr</dt><dd title="${fi?`prošlo ${fi.prosel} z ${fi.s_emailem} inzerátů s e-mailem (${esc(fi.druh)})`:''}">${fi&&fi.procent!=null?`${fi.procent} % <small>z ${cis(fi.s_emailem)}</small>`:'…'}</dd>
+   <dt>Odpovědi</dt><dd>${k.odpovedi_dnes==null?'…':cis(k.odpovedi_dnes)}</dd>
+   <dt>Odhlášení</dt><dd>${cis(k.odhlaseni_dnes)}</dd>
+  </dl>${spark(k.tyden||[],d.dny||[])}${log?`<div class="kz-log">${log}</div>`:''}</article>`}).join(''));
+ const st=(d.stare||[]).map(x=>`${esc(x.nazev)} ${cis(x.celkem)}${x.posledni?` (naposledy ${esc(x.posledni.slice(8,10).replace(/^0/,''))}. ${esc(x.posledni.slice(5,7).replace(/^0/,''))}.)`:''}`).join(' · ');
+ const j=d.jine||{};
+ put('stare',`Zastavené piloty: ${st||'—'} · Jiné kampaně ve stejné historii (ne naše): dnes ${cis(j.dnes)}, celkem ${cis(j.celkem)}`);
+}
+
+function odpovedi(d){
+ const p=d.posta;
+ if(!p){put('slozky','');put('odpovedi',`<p class="prazdne">${d.posta_chyba?'Schránku se nepodařilo přečíst: '+esc(d.posta_chyba):'Schránka se čte…'}</p>`);seg($('odp-filtr'),[],'',()=>{});return}
+ put('slozky',p.slozky.filter(s=>s.dnes||s.nazev==='INBOX').map(s=>`<span class="chip" title="dnes celkem ${s.dnes}, z toho odpovědí na naše kampaně ${s.nase}, automatických ${s.automat}">${esc(s.nazev.replace('Nemovitosti ',''))} <b>${s.dnes}</b>${s.nase!==s.dnes?` · naše ${s.nase}`:''}</span>`).join('')||'<span class="chip">dnes zatím nic</span>');
+ const vse=p.zpravy||[],filtry={ceka:x=>x.ceka,dnes:x=>x.dnes,vse:()=>true};
+ const pocty={ceka:vse.filter(filtry.ceka).length,dnes:vse.filter(filtry.dnes).length,vse:vse.length};
+ seg($('odp-filtr'),[['ceka',`Čeká <b>${pocty.ceka}</b>`],['dnes',`Dnes <b>${pocty.dnes}</b>`],['vse',`3 dny <b>${pocty.vse}</b>`]],UI.odp,k=>{UI.odp=k;lsSet('odp',k);odpovedi(D)});
+ const leady={};((d.crm||{}).obchody||[]).forEach(o=>o.emaily.forEach(e=>leady[e]=o.id));
+ const sez=vse.filter(filtry[UI.odp]||filtry.vse);
+ put('odpovedi',sez.map(x=>{
+  const tagy=[];
+  if(x.ceka)tagy.push('<span class="tag st-warn">čeká na odpověď</span>');
+  if(x.odpovezeno)tagy.push(`<span class="tag st-ok">odpovězeno ${esc(x.odpovezeno_cas)}</span>`);
+  if(x.automat)tagy.push('<span class="tag st-off">automat</span>');
+  if(x.auto_blok)tagy.push('<span class="tag st-bad">odmítl → blocklist</span>');
+  else if(x.blok)tagy.push(`<span class="tag st-off" title="${esc(x.blok_poznamka)}">na blocklistu</span>`);
+  if(leady[x.od])tagy.push(`<button class="odkaz" data-lead="${esc(leady[x.od])}">lead v CRM</button>`);
+  return `<div class="odp ${x.ceka?'ceka':''}"><div class="odp-h"><span class="kod">${esc(x.zeme)}</span><span class="kdo">${esc(x.jmeno||x.od)}</span>${x.jmeno?`<span class="mut maly">${esc(x.od)}</span>`:''}<span class="cas">${x.dnes?esc(x.cas):datum(x.den)+' '+esc(x.cas)}</span></div>
+  <div class="odp-t">${esc(x.nahled)||`<span class="mut">${esc(x.predmet)}</span>`}</div><div class="odp-f">${tagy.join('')}</div></div>`}).join('')||`<p class="prazdne">${UI.odp==='ceka'?'Nic nečeká — všechno zodpovězené.':'Nic.'}</p>`);
+}
+
+let chatPrvni=true;
+function chat(d){
+ const el=$('chat'),dole=el.scrollTop+el.clientHeight>=el.scrollHeight-40;
+ $('tg').textContent=d.telegram?'Telegram propojen':'Telegram nenastaven';
+ const zm=d.zpravy||[];
+ const ch=put(el,zm.map(z=>{const od=z.od==='rafael'?'Rafael':z.od==='claude'?'Claude':'Provoz';return `<div class="m m-${esc(z.od)}">${esc(z.text)}<span class="m-meta">${od} · ${denCas(z.ts)}${z.via==='telegram'?' · Telegram':''}</span></div>`}).join('')||'<p class="prazdne">Zatím žádné zprávy. Napiš Claudovi — zpráva se uloží do reality/data/zpravy.jsonl.</p>');
+ if(ch&&(dole||chatPrvni)){el.scrollTop=el.scrollHeight;chatPrvni=false}
+}
+
+const FZ=f=>'f'+Math.max(0,((D&&D.crm&&D.crm.faze)||[]).indexOf(f));
+function crm(d){
+ const c=d.crm||{obchody:[],faze:[],souhrn:{}};
+ put('crm-souhrn',`${cis(c.otevrene)} otevřených · ${eur(c.hodnota)||'0 €'} v jednání · zavolat ${cis(c.zavolat)}${c.po_terminu?` · <span style="color:var(--bad)">po termínu ${c.po_terminu}</span>`:''}${c.chyba?' · '+esc(c.chyba):''}`);
+ const f=[['otevrene',`Otevřené <small>${c.otevrene}</small>`],['zavolat',`Zavolat <small>${c.zavolat}</small>`]];
+ c.faze.forEach(x=>f.push([x,`${esc(x)} <small>${c.souhrn[x].n}${c.souhrn[x].hodnota?' · '+eur(c.souhrn[x].hodnota):''}</small>`]));
+ f.push(['vse',`Vše <small>${c.obchody.length}</small>`]);
+ put('crm-faze',f.map(([k,l])=>`<button type="button" class="fz ${k===UI.crm?'on':''} ${k==='zavolat'?'zv':''} ${c.faze.includes(k)?FZ(k):''}" data-k="${esc(k)}">${l}</button>`).join(''));
+ $('crm-faze').onclick=e=>{const b=e.target.closest('button');if(b){UI.crm=b.dataset.k;lsSet('crm',UI.crm);crm(D)}};
+ const filtr={otevrene:o=>!c.uzavrene.includes(o.faze),zavolat:o=>o.zavolat,vse:()=>true}[UI.crm]||(o=>o.faze===UI.crm);
+ const sez=c.obchody.filter(filtr);
+ put('crm-seznam',`<div class="cr cr-h"><span>Lead</span><span>Fáze</span><span class="cr-hod">Hodnota</span><span>Další krok</span><span>Vlastník</span><span>Změna</span></div>`+
+  (sez.map(o=>`<button type="button" class="cr" data-lead="${esc(o.id)}"><span class="cr-lead"><b>${esc(o.firma||o.jmeno||o.emaily[0]||o.id)}</b><small>${esc([o.firma?o.jmeno:'',o.emaily.join(', '),o.telefon].filter(Boolean).join(' · '))||'&nbsp;'}</small></span>
+  <span class="cr-fz"><span class="tag ${FZ(o.faze)}">${esc(o.faze)}</span></span><span class="cr-hod">${eur(o.hodnota_eur)||'<span class="mut">—</span>'}</span>
+  <span class="cr-krok"><span>${o.zavolat?'<span class="tag st-warn">zavolat</span> ':''}${o.zavolat&&o.dalsi_krok.trim().toLowerCase()==='zavolat'?'':esc(o.dalsi_krok)||'<span class="mut">—</span>'}</span>${o.dalsi_krok_datum?`<small class="${o.po_terminu?'po':''}">${o.po_terminu?'po termínu · ':''}${datum(o.dalsi_krok_datum)}</small>`:''}</span>
+  <span class="cr-vl">${esc(o.vlastnik)}${o.zdroj==='auto'?' · auto':''}</span><span class="cr-zm">${esc(denCas(o.aktualizovano))}</span></button>`).join('')||'<p class="prazdne">V tomhle filtru nic není.</p>'));
+}
+document.addEventListener('click',e=>{const b=e.target.closest('[data-lead]');if(b){otevriLead(b.dataset.lead)}});
+
+function denik(d){
+ put('denik',(d.denik||[]).map(z=>`<div class="dr"><span class="mut maly">${esc(denCas(z.ts))}</span><span class="k"><span class="tag ${z.kdo==='claude'?'f0':z.kdo==='rafael'?'f3':'st-off'}">${esc(z.kdo)}</span></span><span class="t">${esc(z.text)}</span></div>`).join('')||'<p class="prazdne">Deník je prázdný. Claude zapisuje přes reality.denik.zapis().</p>');
+}
+
+const KAT=[['dulezite','Důležité'],['chyba','Chyby'],['varovani','Varování'],['rozesilka','Rozesílka'],['odeslano','Odesláno'],['stavba','Stavba'],['posta','Pošta'],['provoz','Provoz']];
+const KATN=Object.fromEntries(KAT);
+function logy(d){
+ const vse=d.log||[],poc={};vse.forEach(r=>poc[r.kat]=(poc[r.kat]||0)+1);
+ seg($('log-filtr'),KAT.filter(([k])=>k==='dulezite'||poc[k]).map(([k,l])=>[k,l]),UI.log,k=>{UI.log=k;lsSet('log',k);logy(D)});
+ const sk=(d.chyby_skupiny||[]).slice(0,3);
+ put('skupiny',sk.length?'<span>Nejčastější chyby dnes:</span>'+sk.map(([t,n])=>`<span title="${esc(t)}">${n}× ${esc(t)}</span>`).join(''):'');
+ const sez=vse.filter(r=>UI.log==='dulezite'?r.kat!=='odeslano':r.kat===UI.log).slice(-30).reverse();
+ put('log',sez.map(r=>`<div class="lr ${r.kat}"><span class="mut">${esc(r.cas)}</span><span class="lk">${esc(KATN[r.kat]||r.kat)}</span><span class="lt">${esc(r.text)}</span></div>`).join('')||'<p class="prazdne">Nic.</p>');
+}
+
+/* ---------- lead detail ---------- */
+const POLE=[['firma','Firma','s2'],['jmeno','Kontaktní osoba','s2'],['emaily','E-maily (čárkou)','s2'],['telefon','Telefon',''],['zeme','Země',''],
+ ['faze','Fáze',''],['hodnota_eur','Hodnota €',''],['vlastnik','Vlastník',''],['dalsi_krok_datum','Termín',''],['dalsi_krok','Další krok','s4'],['poznamky','Poznámky','s4']];
+function vlaknoHtml(zpravy){
+ if(!zpravy)return '<p class="prazdne">Načítám korespondenci…</p>';
+ if(!zpravy.length)return '<p class="prazdne">Žádné e-maily s touhle adresou (od 26. 9.).</p>';
+ return '<div class="vl">'+zpravy.slice().reverse().map((m,i)=>`<div class="msg ${m.smer==='ven'?'ven':m.smer==='kampaň'?'kampan':''}"><div class="msg-h"><b>${m.smer==='ven'?'→ my':m.smer==='kampaň'?'kampaň':'← '+esc(m.od)}</b><span>${esc(denCas(m.cas))}</span><span>${esc(m.predmet)}</span></div><div class="msg-t" data-i="${i}">${esc(m.text)}</div></div>`).join('')+'</div>';
+}
+async function otevriLead(id){
+ const c=(D&&D.crm)||{obchody:[]},o=id?c.obchody.find(x=>x.id===id):null;
+ if(id&&!o)return;
+ const dlg=$('lead'),box=$('lead-obsah'),nov=!o,x=o||{faze:'Nový',vlastnik:'Rafael',zeme:'SK',emaily:[],historie:[]};
+ const nazev=nov?'Nový lead':esc(x.firma||x.jmeno||x.emaily[0]||x.id);
+ const hist=(x.historie||[]).slice().reverse().map(h=>`<li><span>${esc(denCas(h.ts))}</span><span>${esc(h.kdo)}: ${esc(h.text)}</span></li>`).join('');
+ let telo;
+ if(LOKAL){
+  const inp=([k,l,cl])=>{let v=k==='emaily'?(x.emaily||[]).join(', '):(x[k]??'');
+   if(k==='faze'||k==='vlastnik'||k==='zeme'){const opt=(k==='faze'?c.faze:k==='vlastnik'?c.vlastnici:c.zeme)||[];return `<label class="${cl}">${l}<select name="${k}">${opt.map(o=>`<option ${o===v?'selected':''}>${esc(o)}</option>`).join('')}</select></label>`}
+   if(k==='poznamky')return `<label class="${cl}">${l}<textarea name="${k}" rows="4">${esc(v)}</textarea></label>`;
+   return `<label class="${cl}">${l}<input name="${k}" ${k==='dalsi_krok_datum'?'type="date"':''} ${k==='hodnota_eur'?'inputmode="decimal"':''} value="${esc(v)}"></label>`};
+  telo=`<form id="lead-form"><div class="dlg-grid">${POLE.map(inp).join('')}</div>
+   <div class="dlg-akce"><button class="btn" type="submit">${nov?'Založit lead':'Uložit změny'}</button><span class="mut maly" id="lead-msg"></span></div></form>
+   ${nov?'':`<div class="dlg-pozn"><textarea id="lead-pozn" rows="2" placeholder="Rychlá poznámka — uloží se s dnešním datem"></textarea><button class="btn-2" type="button" id="lead-pridat">Přidat</button></div>`}`;
+ }else{
+  telo=`<dl class="ro">${POLE.map(([k,l])=>{const v=k==='emaily'?(x.emaily||[]).join(', '):k==='hodnota_eur'?eur(x[k]):k==='dalsi_krok_datum'?datum(x[k]):x[k];return v?`<dt>${l}</dt><dd>${esc(v)}</dd>`:''}).join('')}</dl>`;
+ }
+ box.innerHTML=`<div class="dlg-h"><div><p class="eyebrow">${nov?'CRM':esc(x.faze)+' · '+esc(x.vlastnik)}</p><h3>${nazev}</h3></div><button class="x" type="button" id="lead-x" aria-label="Zavřít">×</button></div>${telo}
+  ${nov?'':`<h4>Historie</h4><ul class="hist">${hist||'<li class="mut">—</li>'}</ul><h4>E-maily</h4><div id="lead-vlakno">${vlaknoHtml(LOKAL?null:((D.crm_vlakna||{})[x.id]||[]))}</div>`}`;
+ $('lead-x').onclick=()=>dlg.close();
+ box.onclick=e=>{const t=e.target.closest('.msg-t');if(t)t.classList.toggle('cely')};
+ if(!dlg.open)dlg.showModal();
+ if(LOKAL){
+  $('lead-form').onsubmit=async e=>{e.preventDefault();const fd=new FormData(e.target),pole={};for(const[k,v]of fd.entries())pole[k]=v;
+   $('lead-msg').textContent='ukládám…';
+   try{const r=await api('/api/crm',nov?{akce:'novy',pole}:{akce:'uloz',id:x.id,pole});$('lead-msg').textContent='uloženo';await tik();if(nov)otevriLead(r.lead.id);else otevriLead(x.id)}catch(err){$('lead-msg').textContent='chyba: '+err.message}};
+  if(!nov){$('lead-pridat').onclick=async()=>{const t=$('lead-pozn').value.trim();if(!t)return;try{await api('/api/crm',{akce:'poznamka',id:x.id,text:t});await tik();otevriLead(x.id)}catch(err){alert(err.message)}};
+   try{const r=await fetch('/api/crm/vlakno?id='+encodeURIComponent(x.id),{cache:'no-store'});const j=await r.json();if($('lead-vlakno'))$('lead-vlakno').innerHTML=vlaknoHtml(j.zpravy||[])}catch(err){if($('lead-vlakno'))$('lead-vlakno').innerHTML='<p class="prazdne">Korespondenci se nepodařilo načíst.</p>'}}
+ }
+}
+
+const b64=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
+let HESLO=null;const KLICE={};
+async function klic(heslo,salt,iter){const k=salt+':'+iter;if(KLICE[k])return KLICE[k];
+ const zaklad=await crypto.subtle.importKey('raw',new TextEncoder().encode(heslo),'PBKDF2',false,['deriveKey']);
+ return KLICE[k]=await crypto.subtle.deriveKey({name:'PBKDF2',salt:b64(salt),iterations:iter,hash:'SHA-256'},zaklad,{name:'AES-GCM',length:256},false,['decrypt'])}
+async function stahni(){const r=await fetch('d.json?t='+Date.now(),{cache:'no-store'});if(!r.ok)throw new Error('snímek zatím není ('+r.status+')');
+ const o=await r.json();let pt;
+ try{pt=await crypto.subtle.decrypt({name:'AES-GCM',iv:b64(o.iv)},await klic(HESLO,o.salt,o.iter),b64(o.data))}catch(e){const x=new Error('Špatné heslo.');x.heslo=true;throw x}
+ let bajty=new Uint8Array(pt);
+ if(o.gz){const s=new Blob([bajty]).stream().pipeThrough(new DecompressionStream('gzip'));bajty=new Uint8Array(await new Response(s).arrayBuffer())}
+ return JSON.parse(new TextDecoder().decode(bajty))}
+function stari(d){const t=Date.parse(d.snimek_iso||'');return isNaN(t)?null:Math.round((Date.now()-t)/60000)}
+async function tik(){try{const d=await stahni();vykresli(d);const m=stari(d);
+  $('tecka').className='tecka'+(m!=null&&m>20?' stary':'');$('cas').textContent='snímek '+d.cas+(m!=null?` · před ${m} min`:'');
+  $('rezim-pill').hidden=false;$('rezim-pill').innerHTML='jen ke čtení · <button type="button" id="odhlasit">odhlásit</button>';
+  $('odhlasit').onclick=()=>{try{localStorage.removeItem('panel.heslo')}catch(e){}location.reload()};return true}
+ catch(e){if(e.heslo)throw e;$('tecka').className='tecka off';$('cas').textContent=e.message;return false}}
+$('chat-pozn').hidden=false;
+async function prihlas(h){HESLO=h;for(const k in KLICE)delete KLICE[k];$('brana-btn').disabled=true;$('brana-chyba').textContent='';
+ try{await tik();$('brana').remove();setInterval(()=>{if(!document.hidden)tik()},60000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)tik()});return true}
+ catch(e){HESLO=null;$('brana-chyba').textContent=e.message;try{localStorage.removeItem('panel.heslo')}catch(x){}return false}
+ finally{const b=$('brana-btn');if(b)b.disabled=false}}
+$('brana-form').onsubmit=async e=>{e.preventDefault();const h=$('heslo').value,pam=$('zapamatovat').checked;if(await prihlas(h)&&pam){try{localStorage.setItem('panel.heslo',h)}catch(x){}}};
+(()=>{let h=null;try{h=localStorage.getItem('panel.heslo')}catch(e){}if(h)prihlas(h)})();
+</script></body></html>
